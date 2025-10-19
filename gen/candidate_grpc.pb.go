@@ -8,7 +8,8 @@ package proto
 
 import (
 	context "context"
-	common "github.com/inter-verse/services/proto/common"
+
+	common "github.com/inter-verse/services/proto/gen"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

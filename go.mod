@@ -14,6 +14,7 @@ require (
 )
 
 require (
+	github.com/inter-verse/services/candidate-service/gen v0.0.0-00010101000000-000000000000 // indirect
 	golang.org/x/net v0.42.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect

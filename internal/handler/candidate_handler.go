@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	pb "github.com/inter-verse/services/candidate-service"
+	pb "github.com/inter-verse/services/candidate-service/gen"
 	"github.com/inter-verse/services/candidate-service/internal/models"
 	"github.com/inter-verse/services/candidate-service/internal/service"
 	common "github.com/inter-verse/services/proto/gen"
