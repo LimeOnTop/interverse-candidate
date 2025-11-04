@@ -4,10 +4,9 @@ import (
 	"context"
 	"time"
 
-	pb "github.com/inter-verse/services/candidate-service/gen"
-	"github.com/inter-verse/services/candidate-service/internal/models"
-	"github.com/inter-verse/services/candidate-service/internal/service"
-	common "github.com/inter-verse/services/proto/gen"
+	pb "github.com/inter-verse/candidate-service/gen"
+	"github.com/inter-verse/candidate-service/internal/models"
+	"github.com/inter-verse/candidate-service/internal/service"
 )
 
 type CandidateHandler struct {
@@ -39,7 +38,7 @@ func (h *CandidateHandler) CreateCandidate(ctx context.Context, req *pb.CreateCa
 	createdCandidate, err := h.candidateService.CreateCandidate(candidate)
 	if err != nil {
 		return &pb.CreateCandidateResponse{
-			Response: &common.Response{
+			Response: &pb.Response{
 				Success: false,
 				Error:   err.Error(),
 			},
@@ -47,7 +46,7 @@ func (h *CandidateHandler) CreateCandidate(ctx context.Context, req *pb.CreateCa
 	}
 
 	return &pb.CreateCandidateResponse{
-		Response: &common.Response{
+		Response: &pb.Response{
 			Success: true,
 			Message: "Candidate created successfully",
 		},
@@ -74,7 +73,7 @@ func (h *CandidateHandler) GetCandidate(ctx context.Context, req *pb.GetCandidat
 	candidate, err := h.candidateService.GetCandidateByID(req.CandidateId)
 	if err != nil {
 		return &pb.GetCandidateResponse{
-			Response: &common.Response{
+			Response: &pb.Response{
 				Success: false,
 				Error:   err.Error(),
 			},
@@ -82,7 +81,7 @@ func (h *CandidateHandler) GetCandidate(ctx context.Context, req *pb.GetCandidat
 	}
 
 	return &pb.GetCandidateResponse{
-		Response: &common.Response{
+		Response: &pb.Response{
 			Success: true,
 		},
 		Candidate: &pb.Candidate{
@@ -116,7 +115,7 @@ func (h *CandidateHandler) GetCandidates(ctx context.Context, req *pb.GetCandida
 	candidates, err := h.candidateService.GetCandidatesByInterviewer(req.InterviewerId, limit, offset)
 	if err != nil {
 		return &pb.GetCandidatesResponse{
-			Response: &common.Response{
+			Response: &pb.Response{
 				Success: false,
 				Error:   err.Error(),
 			},
@@ -144,11 +143,11 @@ func (h *CandidateHandler) GetCandidates(ctx context.Context, req *pb.GetCandida
 	}
 
 	return &pb.GetCandidatesResponse{
-		Response: &common.Response{
+		Response: &pb.Response{
 			Success: true,
 		},
 		Candidates: pbCandidates,
-		Pagination: &common.Pagination{
+		Pagination: &pb.Pagination{
 			Page:  req.Pagination.Page,
 			Limit: req.Pagination.Limit,
 			Total: int32(len(pbCandidates)),
@@ -174,7 +173,7 @@ func (h *CandidateHandler) UpdateCandidate(ctx context.Context, req *pb.UpdateCa
 	updatedCandidate, err := h.candidateService.UpdateCandidate(candidate)
 	if err != nil {
 		return &pb.UpdateCandidateResponse{
-			Response: &common.Response{
+			Response: &pb.Response{
 				Success: false,
 				Error:   err.Error(),
 			},
@@ -182,7 +181,7 @@ func (h *CandidateHandler) UpdateCandidate(ctx context.Context, req *pb.UpdateCa
 	}
 
 	return &pb.UpdateCandidateResponse{
-		Response: &common.Response{
+		Response: &pb.Response{
 			Success: true,
 			Message: "Candidate updated successfully",
 		},
@@ -205,16 +204,16 @@ func (h *CandidateHandler) UpdateCandidate(ctx context.Context, req *pb.UpdateCa
 	}, nil
 }
 
-func (h *CandidateHandler) DeleteCandidate(ctx context.Context, req *pb.DeleteCandidateRequest) (*common.Response, error) {
+func (h *CandidateHandler) DeleteCandidate(ctx context.Context, req *pb.DeleteCandidateRequest) (*pb.Response, error) {
 	err := h.candidateService.DeleteCandidate(req.CandidateId)
 	if err != nil {
-		return &common.Response{
+		return &pb.Response{
 			Success: false,
 			Error:   err.Error(),
 		}, nil
 	}
 
-	return &common.Response{
+	return &pb.Response{
 		Success: true,
 		Message: "Candidate deleted successfully",
 	}, nil
@@ -232,7 +231,7 @@ func (h *CandidateHandler) SearchCandidates(ctx context.Context, req *pb.SearchC
 	candidates, err := h.candidateService.SearchCandidates(req.Query, req.InterviewerId, limit, offset)
 	if err != nil {
 		return &pb.SearchCandidatesResponse{
-			Response: &common.Response{
+			Response: &pb.Response{
 				Success: false,
 				Error:   err.Error(),
 			},
@@ -260,11 +259,11 @@ func (h *CandidateHandler) SearchCandidates(ctx context.Context, req *pb.SearchC
 	}
 
 	return &pb.SearchCandidatesResponse{
-		Response: &common.Response{
+		Response: &pb.Response{
 			Success: true,
 		},
 		Candidates: pbCandidates,
-		Pagination: &common.Pagination{
+		Pagination: &pb.Pagination{
 			Page:  req.Pagination.Page,
 			Limit: req.Pagination.Limit,
 			Total: int32(len(pbCandidates)),

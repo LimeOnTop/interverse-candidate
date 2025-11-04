@@ -2,9 +2,21 @@ syntax = "proto3";
 
 package candidate;
 
-import "services/proto/common.proto";
+option go_package = "github.com/inter-verse/candidate-service/gen";
 
-option go_package = "github.com/inter-verse/services/candidate-service/proto";
+// Common response wrapper
+message Response {
+  bool success = 1;
+  string message = 2;
+  string error = 3;
+}
+
+// Pagination
+message Pagination {
+  int32 page = 1;
+  int32 limit = 2;
+  int32 total = 3;
+}
 
 // Candidate service definition
 service CandidateService {
@@ -12,7 +24,7 @@ service CandidateService {
   rpc GetCandidate(GetCandidateRequest) returns (GetCandidateResponse);
   rpc GetCandidates(GetCandidatesRequest) returns (GetCandidatesResponse);
   rpc UpdateCandidate(UpdateCandidateRequest) returns (UpdateCandidateResponse);
-  rpc DeleteCandidate(DeleteCandidateRequest) returns (common.Response);
+  rpc DeleteCandidate(DeleteCandidateRequest) returns (Response);
   rpc SearchCandidates(SearchCandidatesRequest) returns (SearchCandidatesResponse);
 }
 
@@ -49,7 +61,7 @@ message CreateCandidateRequest {
 }
 
 message CreateCandidateResponse {
-  common.Response response = 1;
+  Response response = 1;
   Candidate candidate = 2;
 }
 
@@ -59,20 +71,20 @@ message GetCandidateRequest {
 }
 
 message GetCandidateResponse {
-  common.Response response = 1;
+  Response response = 1;
   Candidate candidate = 2;
 }
 
 // Get Candidates
 message GetCandidatesRequest {
   string interviewer_id = 1;
-  common.Pagination pagination = 2;
+  Pagination pagination = 2;
 }
 
 message GetCandidatesResponse {
-  common.Response response = 1;
+  Response response = 1;
   repeated Candidate candidates = 2;
-  common.Pagination pagination = 3;
+  Pagination pagination = 3;
 }
 
 // Update Candidate
@@ -91,7 +103,7 @@ message UpdateCandidateRequest {
 }
 
 message UpdateCandidateResponse {
-  common.Response response = 1;
+  Response response = 1;
   Candidate candidate = 2;
 }
 
@@ -104,12 +116,11 @@ message DeleteCandidateRequest {
 message SearchCandidatesRequest {
   string query = 1;
   string interviewer_id = 2;
-  common.Pagination pagination = 3;
+  Pagination pagination = 3;
 }
 
 message SearchCandidatesResponse {
-  common.Response response = 1;
+  Response response = 1;
   repeated Candidate candidates = 2;
-  common.Pagination pagination = 3;
+  Pagination pagination = 3;
 }
-

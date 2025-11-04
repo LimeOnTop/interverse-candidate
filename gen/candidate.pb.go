@@ -2,18 +2,16 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: services/candidate-service/proto/candidate.proto
+// source: candidate-service/proto/candidate.proto
 
-package proto
+package gen
 
 import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
-
-	common "github.com/inter-verse/services/proto/gen"
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -22,6 +20,128 @@ const (
 	// Verify that runtime/protoimpl is sufficiently up-to-date.
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
+
+// Common response wrapper
+type Response struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Response) Reset() {
+	*x = Response{}
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Response) ProtoMessage() {}
+
+func (x *Response) ProtoReflect() protoreflect.Message {
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Response.ProtoReflect.Descriptor instead.
+func (*Response) Descriptor() ([]byte, []int) {
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *Response) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *Response) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *Response) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+// Pagination
+type Pagination struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Page          int32                  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Limit         int32                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	Total         int32                  `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Pagination) Reset() {
+	*x = Pagination{}
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Pagination) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Pagination) ProtoMessage() {}
+
+func (x *Pagination) ProtoReflect() protoreflect.Message {
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Pagination.ProtoReflect.Descriptor instead.
+func (*Pagination) Descriptor() ([]byte, []int) {
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Pagination) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *Pagination) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *Pagination) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
 
 // Candidate entity
 type Candidate struct {
@@ -46,7 +166,7 @@ type Candidate struct {
 
 func (x *Candidate) Reset() {
 	*x = Candidate{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[0]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -58,7 +178,7 @@ func (x *Candidate) String() string {
 func (*Candidate) ProtoMessage() {}
 
 func (x *Candidate) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[0]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -71,7 +191,7 @@ func (x *Candidate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Candidate.ProtoReflect.Descriptor instead.
 func (*Candidate) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{0}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Candidate) GetId() string {
@@ -191,7 +311,7 @@ type CreateCandidateRequest struct {
 
 func (x *CreateCandidateRequest) Reset() {
 	*x = CreateCandidateRequest{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[1]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -203,7 +323,7 @@ func (x *CreateCandidateRequest) String() string {
 func (*CreateCandidateRequest) ProtoMessage() {}
 
 func (x *CreateCandidateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[1]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -216,7 +336,7 @@ func (x *CreateCandidateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateCandidateRequest.ProtoReflect.Descriptor instead.
 func (*CreateCandidateRequest) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{1}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateCandidateRequest) GetName() string {
@@ -291,7 +411,7 @@ func (x *CreateCandidateRequest) GetInterviewerId() string {
 
 type CreateCandidateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Response      *common.Response       `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
+	Response      *Response              `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
 	Candidate     *Candidate             `protobuf:"bytes,2,opt,name=candidate,proto3" json:"candidate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -299,7 +419,7 @@ type CreateCandidateResponse struct {
 
 func (x *CreateCandidateResponse) Reset() {
 	*x = CreateCandidateResponse{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[2]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -311,7 +431,7 @@ func (x *CreateCandidateResponse) String() string {
 func (*CreateCandidateResponse) ProtoMessage() {}
 
 func (x *CreateCandidateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[2]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -324,10 +444,10 @@ func (x *CreateCandidateResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateCandidateResponse.ProtoReflect.Descriptor instead.
 func (*CreateCandidateResponse) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{2}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *CreateCandidateResponse) GetResponse() *common.Response {
+func (x *CreateCandidateResponse) GetResponse() *Response {
 	if x != nil {
 		return x.Response
 	}
@@ -351,7 +471,7 @@ type GetCandidateRequest struct {
 
 func (x *GetCandidateRequest) Reset() {
 	*x = GetCandidateRequest{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[3]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -363,7 +483,7 @@ func (x *GetCandidateRequest) String() string {
 func (*GetCandidateRequest) ProtoMessage() {}
 
 func (x *GetCandidateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[3]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -376,7 +496,7 @@ func (x *GetCandidateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCandidateRequest.ProtoReflect.Descriptor instead.
 func (*GetCandidateRequest) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{3}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetCandidateRequest) GetCandidateId() string {
@@ -388,7 +508,7 @@ func (x *GetCandidateRequest) GetCandidateId() string {
 
 type GetCandidateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Response      *common.Response       `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
+	Response      *Response              `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
 	Candidate     *Candidate             `protobuf:"bytes,2,opt,name=candidate,proto3" json:"candidate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -396,7 +516,7 @@ type GetCandidateResponse struct {
 
 func (x *GetCandidateResponse) Reset() {
 	*x = GetCandidateResponse{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[4]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -408,7 +528,7 @@ func (x *GetCandidateResponse) String() string {
 func (*GetCandidateResponse) ProtoMessage() {}
 
 func (x *GetCandidateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[4]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -421,10 +541,10 @@ func (x *GetCandidateResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCandidateResponse.ProtoReflect.Descriptor instead.
 func (*GetCandidateResponse) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{4}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *GetCandidateResponse) GetResponse() *common.Response {
+func (x *GetCandidateResponse) GetResponse() *Response {
 	if x != nil {
 		return x.Response
 	}
@@ -442,14 +562,14 @@ func (x *GetCandidateResponse) GetCandidate() *Candidate {
 type GetCandidatesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	InterviewerId string                 `protobuf:"bytes,1,opt,name=interviewer_id,json=interviewerId,proto3" json:"interviewer_id,omitempty"`
-	Pagination    *common.Pagination     `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Pagination    *Pagination            `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetCandidatesRequest) Reset() {
 	*x = GetCandidatesRequest{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[5]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -461,7 +581,7 @@ func (x *GetCandidatesRequest) String() string {
 func (*GetCandidatesRequest) ProtoMessage() {}
 
 func (x *GetCandidatesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[5]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -474,7 +594,7 @@ func (x *GetCandidatesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCandidatesRequest.ProtoReflect.Descriptor instead.
 func (*GetCandidatesRequest) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{5}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetCandidatesRequest) GetInterviewerId() string {
@@ -484,7 +604,7 @@ func (x *GetCandidatesRequest) GetInterviewerId() string {
 	return ""
 }
 
-func (x *GetCandidatesRequest) GetPagination() *common.Pagination {
+func (x *GetCandidatesRequest) GetPagination() *Pagination {
 	if x != nil {
 		return x.Pagination
 	}
@@ -493,16 +613,16 @@ func (x *GetCandidatesRequest) GetPagination() *common.Pagination {
 
 type GetCandidatesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Response      *common.Response       `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
+	Response      *Response              `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
 	Candidates    []*Candidate           `protobuf:"bytes,2,rep,name=candidates,proto3" json:"candidates,omitempty"`
-	Pagination    *common.Pagination     `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Pagination    *Pagination            `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetCandidatesResponse) Reset() {
 	*x = GetCandidatesResponse{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[6]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -514,7 +634,7 @@ func (x *GetCandidatesResponse) String() string {
 func (*GetCandidatesResponse) ProtoMessage() {}
 
 func (x *GetCandidatesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[6]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -527,10 +647,10 @@ func (x *GetCandidatesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCandidatesResponse.ProtoReflect.Descriptor instead.
 func (*GetCandidatesResponse) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{6}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *GetCandidatesResponse) GetResponse() *common.Response {
+func (x *GetCandidatesResponse) GetResponse() *Response {
 	if x != nil {
 		return x.Response
 	}
@@ -544,7 +664,7 @@ func (x *GetCandidatesResponse) GetCandidates() []*Candidate {
 	return nil
 }
 
-func (x *GetCandidatesResponse) GetPagination() *common.Pagination {
+func (x *GetCandidatesResponse) GetPagination() *Pagination {
 	if x != nil {
 		return x.Pagination
 	}
@@ -571,7 +691,7 @@ type UpdateCandidateRequest struct {
 
 func (x *UpdateCandidateRequest) Reset() {
 	*x = UpdateCandidateRequest{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[7]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -583,7 +703,7 @@ func (x *UpdateCandidateRequest) String() string {
 func (*UpdateCandidateRequest) ProtoMessage() {}
 
 func (x *UpdateCandidateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[7]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -596,7 +716,7 @@ func (x *UpdateCandidateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCandidateRequest.ProtoReflect.Descriptor instead.
 func (*UpdateCandidateRequest) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{7}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *UpdateCandidateRequest) GetCandidateId() string {
@@ -678,7 +798,7 @@ func (x *UpdateCandidateRequest) GetStatus() string {
 
 type UpdateCandidateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Response      *common.Response       `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
+	Response      *Response              `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
 	Candidate     *Candidate             `protobuf:"bytes,2,opt,name=candidate,proto3" json:"candidate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -686,7 +806,7 @@ type UpdateCandidateResponse struct {
 
 func (x *UpdateCandidateResponse) Reset() {
 	*x = UpdateCandidateResponse{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[8]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -698,7 +818,7 @@ func (x *UpdateCandidateResponse) String() string {
 func (*UpdateCandidateResponse) ProtoMessage() {}
 
 func (x *UpdateCandidateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[8]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -711,10 +831,10 @@ func (x *UpdateCandidateResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCandidateResponse.ProtoReflect.Descriptor instead.
 func (*UpdateCandidateResponse) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{8}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *UpdateCandidateResponse) GetResponse() *common.Response {
+func (x *UpdateCandidateResponse) GetResponse() *Response {
 	if x != nil {
 		return x.Response
 	}
@@ -738,7 +858,7 @@ type DeleteCandidateRequest struct {
 
 func (x *DeleteCandidateRequest) Reset() {
 	*x = DeleteCandidateRequest{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[9]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -750,7 +870,7 @@ func (x *DeleteCandidateRequest) String() string {
 func (*DeleteCandidateRequest) ProtoMessage() {}
 
 func (x *DeleteCandidateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[9]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -763,7 +883,7 @@ func (x *DeleteCandidateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCandidateRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCandidateRequest) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{9}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeleteCandidateRequest) GetCandidateId() string {
@@ -778,14 +898,14 @@ type SearchCandidatesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
 	InterviewerId string                 `protobuf:"bytes,2,opt,name=interviewer_id,json=interviewerId,proto3" json:"interviewer_id,omitempty"`
-	Pagination    *common.Pagination     `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Pagination    *Pagination            `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SearchCandidatesRequest) Reset() {
 	*x = SearchCandidatesRequest{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[10]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -797,7 +917,7 @@ func (x *SearchCandidatesRequest) String() string {
 func (*SearchCandidatesRequest) ProtoMessage() {}
 
 func (x *SearchCandidatesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[10]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -810,7 +930,7 @@ func (x *SearchCandidatesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchCandidatesRequest.ProtoReflect.Descriptor instead.
 func (*SearchCandidatesRequest) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{10}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *SearchCandidatesRequest) GetQuery() string {
@@ -827,7 +947,7 @@ func (x *SearchCandidatesRequest) GetInterviewerId() string {
 	return ""
 }
 
-func (x *SearchCandidatesRequest) GetPagination() *common.Pagination {
+func (x *SearchCandidatesRequest) GetPagination() *Pagination {
 	if x != nil {
 		return x.Pagination
 	}
@@ -836,16 +956,16 @@ func (x *SearchCandidatesRequest) GetPagination() *common.Pagination {
 
 type SearchCandidatesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Response      *common.Response       `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
+	Response      *Response              `protobuf:"bytes,1,opt,name=response,proto3" json:"response,omitempty"`
 	Candidates    []*Candidate           `protobuf:"bytes,2,rep,name=candidates,proto3" json:"candidates,omitempty"`
-	Pagination    *common.Pagination     `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Pagination    *Pagination            `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SearchCandidatesResponse) Reset() {
 	*x = SearchCandidatesResponse{}
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[11]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -857,7 +977,7 @@ func (x *SearchCandidatesResponse) String() string {
 func (*SearchCandidatesResponse) ProtoMessage() {}
 
 func (x *SearchCandidatesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_candidate_service_proto_candidate_proto_msgTypes[11]
+	mi := &file_candidate_service_proto_candidate_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -870,10 +990,10 @@ func (x *SearchCandidatesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchCandidatesResponse.ProtoReflect.Descriptor instead.
 func (*SearchCandidatesResponse) Descriptor() ([]byte, []int) {
-	return file_services_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{11}
+	return file_candidate_service_proto_candidate_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *SearchCandidatesResponse) GetResponse() *common.Response {
+func (x *SearchCandidatesResponse) GetResponse() *Response {
 	if x != nil {
 		return x.Response
 	}
@@ -887,18 +1007,27 @@ func (x *SearchCandidatesResponse) GetCandidates() []*Candidate {
 	return nil
 }
 
-func (x *SearchCandidatesResponse) GetPagination() *common.Pagination {
+func (x *SearchCandidatesResponse) GetPagination() *Pagination {
 	if x != nil {
 		return x.Pagination
 	}
 	return nil
 }
 
-var File_services_candidate_service_proto_candidate_proto protoreflect.FileDescriptor
+var File_candidate_service_proto_candidate_proto protoreflect.FileDescriptor
 
-const file_services_candidate_service_proto_candidate_proto_rawDesc = "" +
+const file_candidate_service_proto_candidate_proto_rawDesc = "" +
 	"\n" +
-	"0services/candidate-service/proto/candidate.proto\x12\tcandidate\x1a\x1bservices/proto/common.proto\"\x8d\x03\n" +
+	"'candidate-service/proto/candidate.proto\x12\tcandidate\"T\n" +
+	"\bResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"L\n" +
+	"\n" +
+	"Pagination\x12\x12\n" +
+	"\x04page\x18\x01 \x01(\x05R\x04page\x12\x14\n" +
+	"\x05limit\x18\x02 \x01(\x05R\x05limit\x12\x14\n" +
+	"\x05total\x18\x03 \x01(\x05R\x05total\"\x8d\x03\n" +
 	"\tCandidate\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
@@ -936,27 +1065,27 @@ const file_services_candidate_service_proto_candidate_proto_rawDesc = "" +
 	"\n" +
 	"github_url\x18\t \x01(\tR\tgithubUrl\x12%\n" +
 	"\x0einterviewer_id\x18\n" +
-	" \x01(\tR\rinterviewerId\"{\n" +
-	"\x17CreateCandidateResponse\x12,\n" +
-	"\bresponse\x18\x01 \x01(\v2\x10.common.ResponseR\bresponse\x122\n" +
+	" \x01(\tR\rinterviewerId\"~\n" +
+	"\x17CreateCandidateResponse\x12/\n" +
+	"\bresponse\x18\x01 \x01(\v2\x13.candidate.ResponseR\bresponse\x122\n" +
 	"\tcandidate\x18\x02 \x01(\v2\x14.candidate.CandidateR\tcandidate\"8\n" +
 	"\x13GetCandidateRequest\x12!\n" +
-	"\fcandidate_id\x18\x01 \x01(\tR\vcandidateId\"x\n" +
-	"\x14GetCandidateResponse\x12,\n" +
-	"\bresponse\x18\x01 \x01(\v2\x10.common.ResponseR\bresponse\x122\n" +
-	"\tcandidate\x18\x02 \x01(\v2\x14.candidate.CandidateR\tcandidate\"q\n" +
+	"\fcandidate_id\x18\x01 \x01(\tR\vcandidateId\"{\n" +
+	"\x14GetCandidateResponse\x12/\n" +
+	"\bresponse\x18\x01 \x01(\v2\x13.candidate.ResponseR\bresponse\x122\n" +
+	"\tcandidate\x18\x02 \x01(\v2\x14.candidate.CandidateR\tcandidate\"t\n" +
 	"\x14GetCandidatesRequest\x12%\n" +
-	"\x0einterviewer_id\x18\x01 \x01(\tR\rinterviewerId\x122\n" +
+	"\x0einterviewer_id\x18\x01 \x01(\tR\rinterviewerId\x125\n" +
 	"\n" +
-	"pagination\x18\x02 \x01(\v2\x12.common.PaginationR\n" +
-	"pagination\"\xaf\x01\n" +
-	"\x15GetCandidatesResponse\x12,\n" +
-	"\bresponse\x18\x01 \x01(\v2\x10.common.ResponseR\bresponse\x124\n" +
+	"pagination\x18\x02 \x01(\v2\x15.candidate.PaginationR\n" +
+	"pagination\"\xb5\x01\n" +
+	"\x15GetCandidatesResponse\x12/\n" +
+	"\bresponse\x18\x01 \x01(\v2\x13.candidate.ResponseR\bresponse\x124\n" +
 	"\n" +
 	"candidates\x18\x02 \x03(\v2\x14.candidate.CandidateR\n" +
-	"candidates\x122\n" +
+	"candidates\x125\n" +
 	"\n" +
-	"pagination\x18\x03 \x01(\v2\x12.common.PaginationR\n" +
+	"pagination\x18\x03 \x01(\v2\x15.candidate.PaginationR\n" +
 	"pagination\"\xc8\x02\n" +
 	"\x16UpdateCandidateRequest\x12!\n" +
 	"\fcandidate_id\x18\x01 \x01(\tR\vcandidateId\x12\x12\n" +
@@ -974,90 +1103,90 @@ const file_services_candidate_service_proto_candidate_proto_rawDesc = "" +
 	"\n" +
 	"github_url\x18\n" +
 	" \x01(\tR\tgithubUrl\x12\x16\n" +
-	"\x06status\x18\v \x01(\tR\x06status\"{\n" +
-	"\x17UpdateCandidateResponse\x12,\n" +
-	"\bresponse\x18\x01 \x01(\v2\x10.common.ResponseR\bresponse\x122\n" +
+	"\x06status\x18\v \x01(\tR\x06status\"~\n" +
+	"\x17UpdateCandidateResponse\x12/\n" +
+	"\bresponse\x18\x01 \x01(\v2\x13.candidate.ResponseR\bresponse\x122\n" +
 	"\tcandidate\x18\x02 \x01(\v2\x14.candidate.CandidateR\tcandidate\";\n" +
 	"\x16DeleteCandidateRequest\x12!\n" +
-	"\fcandidate_id\x18\x01 \x01(\tR\vcandidateId\"\x8a\x01\n" +
+	"\fcandidate_id\x18\x01 \x01(\tR\vcandidateId\"\x8d\x01\n" +
 	"\x17SearchCandidatesRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12%\n" +
-	"\x0einterviewer_id\x18\x02 \x01(\tR\rinterviewerId\x122\n" +
+	"\x0einterviewer_id\x18\x02 \x01(\tR\rinterviewerId\x125\n" +
 	"\n" +
-	"pagination\x18\x03 \x01(\v2\x12.common.PaginationR\n" +
-	"pagination\"\xb2\x01\n" +
-	"\x18SearchCandidatesResponse\x12,\n" +
-	"\bresponse\x18\x01 \x01(\v2\x10.common.ResponseR\bresponse\x124\n" +
+	"pagination\x18\x03 \x01(\v2\x15.candidate.PaginationR\n" +
+	"pagination\"\xb8\x01\n" +
+	"\x18SearchCandidatesResponse\x12/\n" +
+	"\bresponse\x18\x01 \x01(\v2\x13.candidate.ResponseR\bresponse\x124\n" +
 	"\n" +
 	"candidates\x18\x02 \x03(\v2\x14.candidate.CandidateR\n" +
-	"candidates\x122\n" +
+	"candidates\x125\n" +
 	"\n" +
-	"pagination\x18\x03 \x01(\v2\x12.common.PaginationR\n" +
-	"pagination2\x90\x04\n" +
+	"pagination\x18\x03 \x01(\v2\x15.candidate.PaginationR\n" +
+	"pagination2\x93\x04\n" +
 	"\x10CandidateService\x12X\n" +
 	"\x0fCreateCandidate\x12!.candidate.CreateCandidateRequest\x1a\".candidate.CreateCandidateResponse\x12O\n" +
 	"\fGetCandidate\x12\x1e.candidate.GetCandidateRequest\x1a\x1f.candidate.GetCandidateResponse\x12R\n" +
 	"\rGetCandidates\x12\x1f.candidate.GetCandidatesRequest\x1a .candidate.GetCandidatesResponse\x12X\n" +
-	"\x0fUpdateCandidate\x12!.candidate.UpdateCandidateRequest\x1a\".candidate.UpdateCandidateResponse\x12F\n" +
-	"\x0fDeleteCandidate\x12!.candidate.DeleteCandidateRequest\x1a\x10.common.Response\x12[\n" +
-	"\x10SearchCandidates\x12\".candidate.SearchCandidatesRequest\x1a#.candidate.SearchCandidatesResponseB9Z7github.com/inter-verse/services/candidate-service/protob\x06proto3"
+	"\x0fUpdateCandidate\x12!.candidate.UpdateCandidateRequest\x1a\".candidate.UpdateCandidateResponse\x12I\n" +
+	"\x0fDeleteCandidate\x12!.candidate.DeleteCandidateRequest\x1a\x13.candidate.Response\x12[\n" +
+	"\x10SearchCandidates\x12\".candidate.SearchCandidatesRequest\x1a#.candidate.SearchCandidatesResponseB.Z,github.com/inter-verse/candidate-service/genb\x06proto3"
 
 var (
-	file_services_candidate_service_proto_candidate_proto_rawDescOnce sync.Once
-	file_services_candidate_service_proto_candidate_proto_rawDescData []byte
+	file_candidate_service_proto_candidate_proto_rawDescOnce sync.Once
+	file_candidate_service_proto_candidate_proto_rawDescData []byte
 )
 
-func file_services_candidate_service_proto_candidate_proto_rawDescGZIP() []byte {
-	file_services_candidate_service_proto_candidate_proto_rawDescOnce.Do(func() {
-		file_services_candidate_service_proto_candidate_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_services_candidate_service_proto_candidate_proto_rawDesc), len(file_services_candidate_service_proto_candidate_proto_rawDesc)))
+func file_candidate_service_proto_candidate_proto_rawDescGZIP() []byte {
+	file_candidate_service_proto_candidate_proto_rawDescOnce.Do(func() {
+		file_candidate_service_proto_candidate_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_candidate_service_proto_candidate_proto_rawDesc), len(file_candidate_service_proto_candidate_proto_rawDesc)))
 	})
-	return file_services_candidate_service_proto_candidate_proto_rawDescData
+	return file_candidate_service_proto_candidate_proto_rawDescData
 }
 
-var file_services_candidate_service_proto_candidate_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_services_candidate_service_proto_candidate_proto_goTypes = []any{
-	(*Candidate)(nil),                // 0: candidate.Candidate
-	(*CreateCandidateRequest)(nil),   // 1: candidate.CreateCandidateRequest
-	(*CreateCandidateResponse)(nil),  // 2: candidate.CreateCandidateResponse
-	(*GetCandidateRequest)(nil),      // 3: candidate.GetCandidateRequest
-	(*GetCandidateResponse)(nil),     // 4: candidate.GetCandidateResponse
-	(*GetCandidatesRequest)(nil),     // 5: candidate.GetCandidatesRequest
-	(*GetCandidatesResponse)(nil),    // 6: candidate.GetCandidatesResponse
-	(*UpdateCandidateRequest)(nil),   // 7: candidate.UpdateCandidateRequest
-	(*UpdateCandidateResponse)(nil),  // 8: candidate.UpdateCandidateResponse
-	(*DeleteCandidateRequest)(nil),   // 9: candidate.DeleteCandidateRequest
-	(*SearchCandidatesRequest)(nil),  // 10: candidate.SearchCandidatesRequest
-	(*SearchCandidatesResponse)(nil), // 11: candidate.SearchCandidatesResponse
-	(*common.Response)(nil),          // 12: common.Response
-	(*common.Pagination)(nil),        // 13: common.Pagination
+var file_candidate_service_proto_candidate_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_candidate_service_proto_candidate_proto_goTypes = []any{
+	(*Response)(nil),                 // 0: candidate.Response
+	(*Pagination)(nil),               // 1: candidate.Pagination
+	(*Candidate)(nil),                // 2: candidate.Candidate
+	(*CreateCandidateRequest)(nil),   // 3: candidate.CreateCandidateRequest
+	(*CreateCandidateResponse)(nil),  // 4: candidate.CreateCandidateResponse
+	(*GetCandidateRequest)(nil),      // 5: candidate.GetCandidateRequest
+	(*GetCandidateResponse)(nil),     // 6: candidate.GetCandidateResponse
+	(*GetCandidatesRequest)(nil),     // 7: candidate.GetCandidatesRequest
+	(*GetCandidatesResponse)(nil),    // 8: candidate.GetCandidatesResponse
+	(*UpdateCandidateRequest)(nil),   // 9: candidate.UpdateCandidateRequest
+	(*UpdateCandidateResponse)(nil),  // 10: candidate.UpdateCandidateResponse
+	(*DeleteCandidateRequest)(nil),   // 11: candidate.DeleteCandidateRequest
+	(*SearchCandidatesRequest)(nil),  // 12: candidate.SearchCandidatesRequest
+	(*SearchCandidatesResponse)(nil), // 13: candidate.SearchCandidatesResponse
 }
-var file_services_candidate_service_proto_candidate_proto_depIdxs = []int32{
-	12, // 0: candidate.CreateCandidateResponse.response:type_name -> common.Response
-	0,  // 1: candidate.CreateCandidateResponse.candidate:type_name -> candidate.Candidate
-	12, // 2: candidate.GetCandidateResponse.response:type_name -> common.Response
-	0,  // 3: candidate.GetCandidateResponse.candidate:type_name -> candidate.Candidate
-	13, // 4: candidate.GetCandidatesRequest.pagination:type_name -> common.Pagination
-	12, // 5: candidate.GetCandidatesResponse.response:type_name -> common.Response
-	0,  // 6: candidate.GetCandidatesResponse.candidates:type_name -> candidate.Candidate
-	13, // 7: candidate.GetCandidatesResponse.pagination:type_name -> common.Pagination
-	12, // 8: candidate.UpdateCandidateResponse.response:type_name -> common.Response
-	0,  // 9: candidate.UpdateCandidateResponse.candidate:type_name -> candidate.Candidate
-	13, // 10: candidate.SearchCandidatesRequest.pagination:type_name -> common.Pagination
-	12, // 11: candidate.SearchCandidatesResponse.response:type_name -> common.Response
-	0,  // 12: candidate.SearchCandidatesResponse.candidates:type_name -> candidate.Candidate
-	13, // 13: candidate.SearchCandidatesResponse.pagination:type_name -> common.Pagination
-	1,  // 14: candidate.CandidateService.CreateCandidate:input_type -> candidate.CreateCandidateRequest
-	3,  // 15: candidate.CandidateService.GetCandidate:input_type -> candidate.GetCandidateRequest
-	5,  // 16: candidate.CandidateService.GetCandidates:input_type -> candidate.GetCandidatesRequest
-	7,  // 17: candidate.CandidateService.UpdateCandidate:input_type -> candidate.UpdateCandidateRequest
-	9,  // 18: candidate.CandidateService.DeleteCandidate:input_type -> candidate.DeleteCandidateRequest
-	10, // 19: candidate.CandidateService.SearchCandidates:input_type -> candidate.SearchCandidatesRequest
-	2,  // 20: candidate.CandidateService.CreateCandidate:output_type -> candidate.CreateCandidateResponse
-	4,  // 21: candidate.CandidateService.GetCandidate:output_type -> candidate.GetCandidateResponse
-	6,  // 22: candidate.CandidateService.GetCandidates:output_type -> candidate.GetCandidatesResponse
-	8,  // 23: candidate.CandidateService.UpdateCandidate:output_type -> candidate.UpdateCandidateResponse
-	12, // 24: candidate.CandidateService.DeleteCandidate:output_type -> common.Response
-	11, // 25: candidate.CandidateService.SearchCandidates:output_type -> candidate.SearchCandidatesResponse
+var file_candidate_service_proto_candidate_proto_depIdxs = []int32{
+	0,  // 0: candidate.CreateCandidateResponse.response:type_name -> candidate.Response
+	2,  // 1: candidate.CreateCandidateResponse.candidate:type_name -> candidate.Candidate
+	0,  // 2: candidate.GetCandidateResponse.response:type_name -> candidate.Response
+	2,  // 3: candidate.GetCandidateResponse.candidate:type_name -> candidate.Candidate
+	1,  // 4: candidate.GetCandidatesRequest.pagination:type_name -> candidate.Pagination
+	0,  // 5: candidate.GetCandidatesResponse.response:type_name -> candidate.Response
+	2,  // 6: candidate.GetCandidatesResponse.candidates:type_name -> candidate.Candidate
+	1,  // 7: candidate.GetCandidatesResponse.pagination:type_name -> candidate.Pagination
+	0,  // 8: candidate.UpdateCandidateResponse.response:type_name -> candidate.Response
+	2,  // 9: candidate.UpdateCandidateResponse.candidate:type_name -> candidate.Candidate
+	1,  // 10: candidate.SearchCandidatesRequest.pagination:type_name -> candidate.Pagination
+	0,  // 11: candidate.SearchCandidatesResponse.response:type_name -> candidate.Response
+	2,  // 12: candidate.SearchCandidatesResponse.candidates:type_name -> candidate.Candidate
+	1,  // 13: candidate.SearchCandidatesResponse.pagination:type_name -> candidate.Pagination
+	3,  // 14: candidate.CandidateService.CreateCandidate:input_type -> candidate.CreateCandidateRequest
+	5,  // 15: candidate.CandidateService.GetCandidate:input_type -> candidate.GetCandidateRequest
+	7,  // 16: candidate.CandidateService.GetCandidates:input_type -> candidate.GetCandidatesRequest
+	9,  // 17: candidate.CandidateService.UpdateCandidate:input_type -> candidate.UpdateCandidateRequest
+	11, // 18: candidate.CandidateService.DeleteCandidate:input_type -> candidate.DeleteCandidateRequest
+	12, // 19: candidate.CandidateService.SearchCandidates:input_type -> candidate.SearchCandidatesRequest
+	4,  // 20: candidate.CandidateService.CreateCandidate:output_type -> candidate.CreateCandidateResponse
+	6,  // 21: candidate.CandidateService.GetCandidate:output_type -> candidate.GetCandidateResponse
+	8,  // 22: candidate.CandidateService.GetCandidates:output_type -> candidate.GetCandidatesResponse
+	10, // 23: candidate.CandidateService.UpdateCandidate:output_type -> candidate.UpdateCandidateResponse
+	0,  // 24: candidate.CandidateService.DeleteCandidate:output_type -> candidate.Response
+	13, // 25: candidate.CandidateService.SearchCandidates:output_type -> candidate.SearchCandidatesResponse
 	20, // [20:26] is the sub-list for method output_type
 	14, // [14:20] is the sub-list for method input_type
 	14, // [14:14] is the sub-list for extension type_name
@@ -1065,26 +1194,26 @@ var file_services_candidate_service_proto_candidate_proto_depIdxs = []int32{
 	0,  // [0:14] is the sub-list for field type_name
 }
 
-func init() { file_services_candidate_service_proto_candidate_proto_init() }
-func file_services_candidate_service_proto_candidate_proto_init() {
-	if File_services_candidate_service_proto_candidate_proto != nil {
+func init() { file_candidate_service_proto_candidate_proto_init() }
+func file_candidate_service_proto_candidate_proto_init() {
+	if File_candidate_service_proto_candidate_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_services_candidate_service_proto_candidate_proto_rawDesc), len(file_services_candidate_service_proto_candidate_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_candidate_service_proto_candidate_proto_rawDesc), len(file_candidate_service_proto_candidate_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_services_candidate_service_proto_candidate_proto_goTypes,
-		DependencyIndexes: file_services_candidate_service_proto_candidate_proto_depIdxs,
-		MessageInfos:      file_services_candidate_service_proto_candidate_proto_msgTypes,
+		GoTypes:           file_candidate_service_proto_candidate_proto_goTypes,
+		DependencyIndexes: file_candidate_service_proto_candidate_proto_depIdxs,
+		MessageInfos:      file_candidate_service_proto_candidate_proto_msgTypes,
 	}.Build()
-	File_services_candidate_service_proto_candidate_proto = out.File
-	file_services_candidate_service_proto_candidate_proto_goTypes = nil
-	file_services_candidate_service_proto_candidate_proto_depIdxs = nil
+	File_candidate_service_proto_candidate_proto = out.File
+	file_candidate_service_proto_candidate_proto_goTypes = nil
+	file_candidate_service_proto_candidate_proto_depIdxs = nil
 }

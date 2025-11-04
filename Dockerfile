@@ -6,18 +6,15 @@ WORKDIR /app
 # Install dependencies
 RUN apk add --no-cache git
 
-# Copy common proto files first
-COPY services/proto/ ./services/proto/
-
 # Copy go mod files
 # Copy gen directory for local modules
-COPY services/candidate-service/gen/ ./gen/
+COPY candidate-service/gen/ ./gen/
 
-COPY services/candidate-service/go.mod services/candidate-service/go.sum ./
+COPY candidate-service/go.mod candidate-service/go.sum ./
 RUN go mod download
 
 # Copy source code
-COPY services/candidate-service/ ./
+COPY candidate-service/ ./
 
 # Build the application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o candidate-service .

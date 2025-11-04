@@ -2,14 +2,12 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.33.0
-// source: services/candidate-service/proto/candidate.proto
+// source: candidate-service/proto/candidate.proto
 
-package proto
+package gen
 
 import (
 	context "context"
-
-	common "github.com/inter-verse/services/proto/gen"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -39,7 +37,7 @@ type CandidateServiceClient interface {
 	GetCandidate(ctx context.Context, in *GetCandidateRequest, opts ...grpc.CallOption) (*GetCandidateResponse, error)
 	GetCandidates(ctx context.Context, in *GetCandidatesRequest, opts ...grpc.CallOption) (*GetCandidatesResponse, error)
 	UpdateCandidate(ctx context.Context, in *UpdateCandidateRequest, opts ...grpc.CallOption) (*UpdateCandidateResponse, error)
-	DeleteCandidate(ctx context.Context, in *DeleteCandidateRequest, opts ...grpc.CallOption) (*common.Response, error)
+	DeleteCandidate(ctx context.Context, in *DeleteCandidateRequest, opts ...grpc.CallOption) (*Response, error)
 	SearchCandidates(ctx context.Context, in *SearchCandidatesRequest, opts ...grpc.CallOption) (*SearchCandidatesResponse, error)
 }
 
@@ -91,9 +89,9 @@ func (c *candidateServiceClient) UpdateCandidate(ctx context.Context, in *Update
 	return out, nil
 }
 
-func (c *candidateServiceClient) DeleteCandidate(ctx context.Context, in *DeleteCandidateRequest, opts ...grpc.CallOption) (*common.Response, error) {
+func (c *candidateServiceClient) DeleteCandidate(ctx context.Context, in *DeleteCandidateRequest, opts ...grpc.CallOption) (*Response, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.Response)
+	out := new(Response)
 	err := c.cc.Invoke(ctx, CandidateService_DeleteCandidate_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -121,7 +119,7 @@ type CandidateServiceServer interface {
 	GetCandidate(context.Context, *GetCandidateRequest) (*GetCandidateResponse, error)
 	GetCandidates(context.Context, *GetCandidatesRequest) (*GetCandidatesResponse, error)
 	UpdateCandidate(context.Context, *UpdateCandidateRequest) (*UpdateCandidateResponse, error)
-	DeleteCandidate(context.Context, *DeleteCandidateRequest) (*common.Response, error)
+	DeleteCandidate(context.Context, *DeleteCandidateRequest) (*Response, error)
 	SearchCandidates(context.Context, *SearchCandidatesRequest) (*SearchCandidatesResponse, error)
 	mustEmbedUnimplementedCandidateServiceServer()
 }
@@ -145,7 +143,7 @@ func (UnimplementedCandidateServiceServer) GetCandidates(context.Context, *GetCa
 func (UnimplementedCandidateServiceServer) UpdateCandidate(context.Context, *UpdateCandidateRequest) (*UpdateCandidateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCandidate not implemented")
 }
-func (UnimplementedCandidateServiceServer) DeleteCandidate(context.Context, *DeleteCandidateRequest) (*common.Response, error) {
+func (UnimplementedCandidateServiceServer) DeleteCandidate(context.Context, *DeleteCandidateRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCandidate not implemented")
 }
 func (UnimplementedCandidateServiceServer) SearchCandidates(context.Context, *SearchCandidatesRequest) (*SearchCandidatesResponse, error) {
@@ -313,5 +311,5 @@ var CandidateService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "services/candidate-service/proto/candidate.proto",
+	Metadata: "candidate-service/proto/candidate.proto",
 }
