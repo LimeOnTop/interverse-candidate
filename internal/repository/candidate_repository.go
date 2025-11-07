@@ -22,13 +22,21 @@ func (r *CandidateRepository) CreateCandidate(candidate *models.Candidate) error
 	candidate.CreatedAt = time.Now()
 	candidate.UpdatedAt = time.Now()
 
+	// Convert empty email to NULL to avoid unique constraint violations
+	var email sql.NullString
+	if candidate.Email != "" {
+		email = sql.NullString{String: candidate.Email, Valid: true}
+	} else {
+		email = sql.NullString{Valid: false}
+	}
+
 	query := `
 		INSERT INTO candidates (id, name, email, phone, position, experience, skills, resume_url, linkedin_url, github_url, status, created_at, updated_at, interviewer_id)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
 	`
 
 	_, err := r.db.Exec(query,
-		candidate.ID, candidate.Name, candidate.Email, candidate.Phone,
+		candidate.ID, candidate.Name, email, candidate.Phone,
 		candidate.Position, candidate.Experience, candidate.Skills,
 		candidate.ResumeURL, candidate.LinkedinURL, candidate.GithubURL,
 		candidate.Status, candidate.CreatedAt, candidate.UpdatedAt, candidate.InterviewerID)
@@ -46,8 +54,9 @@ func (r *CandidateRepository) GetCandidateByID(id string) (*models.Candidate, er
 	`
 
 	candidate := &models.Candidate{}
+	var email sql.NullString
 	err := r.db.QueryRow(query, id).Scan(
-		&candidate.ID, &candidate.Name, &candidate.Email, &candidate.Phone,
+		&candidate.ID, &candidate.Name, &email, &candidate.Phone,
 		&candidate.Position, &candidate.Experience, &candidate.Skills,
 		&candidate.ResumeURL, &candidate.LinkedinURL, &candidate.GithubURL,
 		&candidate.Status, &candidate.CreatedAt, &candidate.UpdatedAt, &candidate.InterviewerID)
@@ -56,6 +65,13 @@ func (r *CandidateRepository) GetCandidateByID(id string) (*models.Candidate, er
 			return nil, fmt.Errorf("candidate not found")
 		}
 		return nil, fmt.Errorf("failed to get candidate: %w", err)
+	}
+
+	// Convert NULL email to empty string
+	if email.Valid {
+		candidate.Email = email.String
+	} else {
+		candidate.Email = ""
 	}
 
 	return candidate, nil
@@ -79,13 +95,20 @@ func (r *CandidateRepository) GetCandidatesByInterviewer(interviewerID string, l
 	var candidates []*models.Candidate
 	for rows.Next() {
 		candidate := &models.Candidate{}
+		var email sql.NullString
 		err := rows.Scan(
-			&candidate.ID, &candidate.Name, &candidate.Email, &candidate.Phone,
+			&candidate.ID, &candidate.Name, &email, &candidate.Phone,
 			&candidate.Position, &candidate.Experience, &candidate.Skills,
 			&candidate.ResumeURL, &candidate.LinkedinURL, &candidate.GithubURL,
 			&candidate.Status, &candidate.CreatedAt, &candidate.UpdatedAt, &candidate.InterviewerID)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan candidate: %w", err)
+		}
+		// Convert NULL email to empty string
+		if email.Valid {
+			candidate.Email = email.String
+		} else {
+			candidate.Email = ""
 		}
 		candidates = append(candidates, candidate)
 	}
@@ -96,6 +119,14 @@ func (r *CandidateRepository) GetCandidatesByInterviewer(interviewerID string, l
 func (r *CandidateRepository) UpdateCandidate(candidate *models.Candidate) error {
 	candidate.UpdatedAt = time.Now()
 
+	// Convert empty email to NULL to avoid unique constraint violations
+	var email sql.NullString
+	if candidate.Email != "" {
+		email = sql.NullString{String: candidate.Email, Valid: true}
+	} else {
+		email = sql.NullString{Valid: false}
+	}
+
 	query := `
 		UPDATE candidates 
 		SET name = $1, email = $2, phone = $3, position = $4, experience = $5, skills = $6, resume_url = $7, linkedin_url = $8, github_url = $9, status = $10, updated_at = $11
@@ -103,7 +134,7 @@ func (r *CandidateRepository) UpdateCandidate(candidate *models.Candidate) error
 	`
 
 	_, err := r.db.Exec(query,
-		candidate.Name, candidate.Email, candidate.Phone, candidate.Position,
+		candidate.Name, email, candidate.Phone, candidate.Position,
 		candidate.Experience, candidate.Skills, candidate.ResumeURL,
 		candidate.LinkedinURL, candidate.GithubURL, candidate.Status,
 		candidate.UpdatedAt, candidate.ID)
@@ -149,17 +180,23 @@ func (r *CandidateRepository) SearchCandidates(query, interviewerID string, limi
 	var candidates []*models.Candidate
 	for rows.Next() {
 		candidate := &models.Candidate{}
+		var email sql.NullString
 		err := rows.Scan(
-			&candidate.ID, &candidate.Name, &candidate.Email, &candidate.Phone,
+			&candidate.ID, &candidate.Name, &email, &candidate.Phone,
 			&candidate.Position, &candidate.Experience, &candidate.Skills,
 			&candidate.ResumeURL, &candidate.LinkedinURL, &candidate.GithubURL,
 			&candidate.Status, &candidate.CreatedAt, &candidate.UpdatedAt, &candidate.InterviewerID)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan candidate: %w", err)
 		}
+		// Convert NULL email to empty string
+		if email.Valid {
+			candidate.Email = email.String
+		} else {
+			candidate.Email = ""
+		}
 		candidates = append(candidates, candidate)
 	}
 
 	return candidates, nil
 }
-
