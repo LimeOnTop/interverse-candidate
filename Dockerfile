@@ -8,13 +8,13 @@ RUN apk add --no-cache git
 
 # Copy go mod files
 # Copy gen directory for local modules
-COPY candidate-service/gen/ ./gen/
+COPY interverse-candidate/gen/ ./gen/
 
-COPY candidate-service/go.mod candidate-service/go.sum ./
+COPY interverse-candidate/go.mod interverse-candidate/go.sum ./
 RUN go mod download
 
 # Copy source code
-COPY candidate-service/ ./
+COPY interverse-candidate/ ./
 
 # Build the application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o candidate-service .

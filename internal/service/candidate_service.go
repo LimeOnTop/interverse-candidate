@@ -3,8 +3,8 @@ package service
 import (
 	"fmt"
 
-	"github.com/inter-verse/candidate-service/internal/models"
-	"github.com/inter-verse/candidate-service/internal/repository"
+	"github.com/LimeOnTop/interverse-candidate/internal/models"
+	"github.com/LimeOnTop/interverse-candidate/internal/repository"
 )
 
 type CandidateService struct {

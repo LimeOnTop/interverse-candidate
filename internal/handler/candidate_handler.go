@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	pb "github.com/inter-verse/candidate-service/gen"
-	"github.com/inter-verse/candidate-service/internal/models"
-	"github.com/inter-verse/candidate-service/internal/service"
+	pb "github.com/LimeOnTop/interverse-candidate/gen"
+	"github.com/LimeOnTop/interverse-candidate/internal/models"
+	"github.com/LimeOnTop/interverse-candidate/internal/service"
 )
 
 type CandidateHandler struct {

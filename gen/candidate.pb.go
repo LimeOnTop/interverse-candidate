@@ -1129,7 +1129,7 @@ const file_candidate_service_proto_candidate_proto_rawDesc = "" +
 	"\rGetCandidates\x12\x1f.candidate.GetCandidatesRequest\x1a .candidate.GetCandidatesResponse\x12X\n" +
 	"\x0fUpdateCandidate\x12!.candidate.UpdateCandidateRequest\x1a\".candidate.UpdateCandidateResponse\x12I\n" +
 	"\x0fDeleteCandidate\x12!.candidate.DeleteCandidateRequest\x1a\x13.candidate.Response\x12[\n" +
-	"\x10SearchCandidates\x12\".candidate.SearchCandidatesRequest\x1a#.candidate.SearchCandidatesResponseB.Z,github.com/inter-verse/candidate-service/genb\x06proto3"
+	"\x10SearchCandidates\x12\".candidate.SearchCandidatesRequest\x1a#.candidate.SearchCandidatesResponseB.Z,github.com/LimeOnTop/interverse-candidate/genb\x06proto3"
 
 var (
 	file_candidate_service_proto_candidate_proto_rawDescOnce sync.Once

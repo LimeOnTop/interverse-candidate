@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/inter-verse/candidate-service/internal/models"
+	"github.com/LimeOnTop/interverse-candidate/internal/models"
 )
 
 type CandidateRepository struct {
